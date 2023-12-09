@@ -1,61 +1,29 @@
 <template>
 	<div class="header">
-  <h1>Pickled</h1>
-  <h2><a href="#">Get Pickled</a></h2>
-</div>
-<div class="menu">
-  <ul>
-    <li class="active"><RouterLink to="/">
-            Home
-          </RouterLink></li>
-    <li v-if="isAuthenticated">
-          <RouterLink to="/" @click="logout">
-            Logout
-          </RouterLink>
-        </li>
-        <li v-else>
-          <RouterLink to="/login">
-            Login
-          </RouterLink></li>
-    <li> <RouterLink to="/game">
-            Game
-          </RouterLink></li>
-		  <RouterLink to="/shop">
-            Shop
-          </RouterLink>
-    <li><RouterLink to="/cart" role="button">
-            Cart <span v-if="products.length">({{
-              products.length }})</span>
-          </RouterLink></li>
-  </ul>
-</div>
+	  <h1>Pickled</h1>
+	  <h2><a href="#">Get Pickled</a></h2>
+	</div>
+	<div class="menu">
+	  <ul>
+		<li class="active"><RouterLink to="/">Home</RouterLink></li>
+		<li v-if="isAuthenticated">
+		  <RouterLink to="/" @click="logout">Logout</RouterLink>
+		</li>
+		<li v-else>
+		  <RouterLink to="/login">Login</RouterLink>
+		</li>
+		<li><RouterLink to="/game">Game</RouterLink></li>
+		<li><RouterLink to="/cast">Cast</RouterLink></li>
+		<li><RouterLink to="/recipe">Recipe</RouterLink></li>
+		<li><RouterLink to="/profile">Profile</RouterLink></li> 
+	  </ul>
+	</div>
   </template>
-
-<script>
-import { mapState } from 'pinia';
-import { useCartStore } from '../store/cartStore';
-import { useUserStore } from '../store/userStore';
-
-    export default {
-        props: {
-    cartProducts: {
-      type: Array,
-      required: true,
-      default: () => [],
-    },
-  },
-  emits: ['onSelect'],
-  computed: {
-    ...mapState(useCartStore, ['products']),
-	...mapState(useUserStore, ['isAuthenticated', 'profile']),
-  },
-  methods: {
-    onSelect(view) {
-      this.$emit('onSelect', view);
-    },
-  },
-    }
-</script>
+  
+  <script setup>
+	import { RouterLink } from 'vue-router';
+	
+  </script>
 
 <style scoped>
  .header {

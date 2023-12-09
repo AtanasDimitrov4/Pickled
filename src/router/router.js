@@ -1,34 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../pages/Home.vue';
-import Shop from '../pages/shop/Shop.vue';
 import Game from '../pages/game/Game.vue';
-import Recipe from '../pages/Recipe.vue';
-import Cart from '../pages/Cart.vue';
-import Register from '../pages/register/Register.vue';
-import Login from '../pages/Login.vue';
+import Cast from '../pages/Cast.vue';
+import Recipe from '../pages/recipe/Recipe.vue';
 import Profile from '../pages/Profile.vue';
-import { useUserStore } from '../store/userStore';
-
-function validateUser() {
-  const userStore = useUserStore();
-  return userStore.isAuthenticated ? userStore.isAuthenticated : { path: '/login' };
-};
+import Login from '../pages/Login.vue' 
 
 const routes = [
   { path: '/', component: Home },
-  { path: '/shop', component: Shop },
   { path: '/game', component: Game },
+  { path: '/cast', component: Cast },
   { path: '/recipe', component: Recipe },
-  { path: '/cart', component: Cart },
-  { path: '/register', component: Register },
-  { path: '/login',
-component: Login,
-beforeEnter: () => {
-    const userStore = useUserStore();
-    return userStore.isAuthenticated ? { path: '/profile' } : true;
-  } },
-  { path: '/profile', component: Profile, beforeEnter: validateUser },
- 
+  { path: '/profile', component: Profile },
+  { path:  '/login', component: Login } 
 ];
 
 const router = createRouter({
