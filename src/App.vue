@@ -1,16 +1,22 @@
 <script setup>
+import { Suspense } from 'vue';
 import { RouterView } from 'vue-router';
 import AppHeader from './components/AppHeader.vue';
 import AppFooter from './components/AppFooter.vue';
-
 </script>
 
 <template>
-  <AppHeader />
-  <main>
-    <RouterView />
-  </main>
-  <AppFooter />
+  <div id="app">
+    <Suspense>
+      <div>
+        <AppHeader />
+        <main>
+          <RouterView />
+        </main>
+        <AppFooter />
+      </div>
+    </Suspense>
+  </div>
 </template>
 
 <style scoped>

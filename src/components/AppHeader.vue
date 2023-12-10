@@ -2,28 +2,33 @@
 	<div class="header">
 	  <h1>Pickled</h1>
 	  <h2><a href="#">Get Pickled</a></h2>
-	</div>
-	<div class="menu">
-	  <ul>
-		<li class="active"><RouterLink to="/">Home</RouterLink></li>
-		<li v-if="isAuthenticated">
-		  <RouterLink to="/" @click="logout">Logout</RouterLink>
-		</li>
-		<li v-else>
-		  <RouterLink to="/login">Login</RouterLink>
-		</li>
-		<li><RouterLink to="/game">Game</RouterLink></li>
-		<li><RouterLink to="/cast">Cast</RouterLink></li>
-		<li><RouterLink to="/recipe">Recipe</RouterLink></li>
-		<li><RouterLink to="/profile">Profile</RouterLink></li> 
-	  </ul>
+  
+	  <div class="menu">
+		<ul>
+		  <li class="active"><RouterLink to="/">Home</RouterLink></li>
+          <template v-if="isAuthenticated">
+			<li><RouterLink :to="{ name: 'profile' }">{{ profile.name }}</RouterLink></li>
+			<li @click="logout">Logout</li>
+		  </template>
+		  <template v-else>
+			<li><RouterLink to="/login">Login</RouterLink></li>
+		  </template>
+  
+		  <li><RouterLink to="/game">Game</RouterLink></li>
+		  <li><RouterLink to="/cast">Cast</RouterLink></li>
+		  <li><RouterLink to="/recipe">Recipe</RouterLink></li>
+		</ul>
+	  </div>
 	</div>
   </template>
   
   <script setup>
-	import { RouterLink } from 'vue-router';
-	
+  import { useUserStore } from '../store/userStore';
+  import { RouterLink } from 'vue-router';
+  
+  const { isAuthenticated, profile, logout } = useUserStore();
   </script>
+
 
 <style scoped>
  .header {

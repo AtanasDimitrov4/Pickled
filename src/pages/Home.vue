@@ -1,47 +1,57 @@
 <template>
-  <suspense>
+  <Suspense>
     <template #default>
-      <h1>Welcome</h1>
-      <h2>What will you do if winter is coming?</h2>
-      <p>
-        Do you make some repairs on the household, or maybe you will take some warm blanket and get cozy?
-        I have another idea. Grab some jar and vegetables and let <strong>get pickled</strong>.
-      </p>
-      <div class="quote">
-        <ul>
-          <h2>{{ quoteData.quote }}</h2>
-        </ul>
-
-        <img class="mascot" src="../assets/Jardo.png" alt="Jardo">
+      <div>
+        <div class="quote">
+          <ul>
+            <h2>{{ quote.quote }}</h2>
+          </ul>
+          <img class="mascot" src="../assets/Jardo.png" alt="Jardo" />
+        </div>
+        
+        <h1>Welcome</h1>
+        <h2>What you will do if the winter is coming?</h2>
+        <p>
+          Do you make some repairs on household or maybe you will take some warm blanket and get cozy?
+          I have another idea. Grab some jar and vegetables and let <strong>let get pickled</strong>
+        </p>
       </div>
     </template>
-
     <template #fallback>
-      <p>Loading...</p>
+      <Loader/>
     </template>
-
-    <template #error>
-      <p>An error occurred while fetching the quote.</p>
-    </template>
-  </suspense>
+  </Suspense>
 </template>
 
 <script setup>
 import { getQuote } from '../dataProviders/quote';
-const quoteData = await getQuote();
+import Loader from '../components/Loader.vue'
+const quote = await getQuote();
 </script>
 
 
+
 <style>
+
 .quote {
-  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px; 
 }
 
 .mascot {
-  display: flex;
-  justify-content: space-between;
+
+  max-width: 200px; 
+}
+
+.RouterLink {
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.RouterLink:hover {
+  text-decoration: underline;
 }
 </style>
-
-
-

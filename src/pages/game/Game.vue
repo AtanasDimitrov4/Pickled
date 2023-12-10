@@ -1,77 +1,80 @@
 <template>
-    <div class="container">
-      <template v-if="!game.ended">
-        <div class="left-section">
-          <img class="evo" src="./components/evolution.png" alt="evolution">
-        </div>
-  
-        <div class="middle-section">
-          <button v-if="!game.isStarted" @click="onStart" class="start-button">
-            Start game
-          </button>
-  
-          <router-view v-else></router-view>
-        </div>
-  
-        <div class="right-section">
-          <h2>
-            <p class="rules">
-              <strong>How to play:</strong>
-              <br>
-              - To move left, press <strong>'A'</strong> key.
-              <br>
-              - To move right, press <strong>'D'</strong> key.
-              <br>
-              - For drop, press <strong>'S'</strong> key.
-              <br>
-              - To exit, press <strong>'Esc'</strong> key.
-            </p>
-          </h2>
-        </div>
-      </template>
+  <div class="container">
+    <div class="left-section">
+      <img class="evo" src="./components/evolution.png" alt="evolution">
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue';
-  import { useRouter } from 'vue-router';
-  
-  const game = ref({
-    ended: false,
-    isStarted: false,
-  });
-  
-  const router = useRouter();
-  
-  onMounted(() => {
-    window.addEventListener('keydown', handleKeyDown);
-  });
-  
-  onUnmounted(() => {
-    window.removeEventListener('keydown', handleKeyDown);
-  
-    if (game.isStarted) {
-      game.ended = true;
-    }
-  });
-  
-  function handleKeyDown(event) {
-    if (event.code === 'Escape' && !game.ended) {
-      onStop();
-    }
-  }
-  
-  function onStart() {
-    game.isStarted = true;
-    router.push('/gameplay'); 
-  }
-  
-  function onStop() {
-    game.ended = true;
-    game.isStarted = false;
-  }
-  </script>
 
-<style lang="scss" scoped>
+    <div class="middle-section">
+      <activeGame/>
+      </div>
+    
 
+    <div class="right-section">
+      <h2>
+        <p class="rules">
+          <strong>How to play:</strong>
+          <br>
+          - To move left, press <strong>'A'</strong> key.
+          <br>
+          - To move right, press <strong>'D'</strong> key.
+          <br>
+          - For drop, press <strong>'S'</strong> key.
+          <br>
+          - To exit, press <strong>'F5'</strong> key.
+        </p>
+      </h2>
+    </div>
+  </div>
+</template>
+
+
+<script setup>
+import { defineAsyncComponent, ref } from 'vue';
+import Gameplay from './Gameplay.vue';
+
+
+
+const gameComponent = defineAsyncComponent(() => import('./Gameplay.vue'));
+
+const activeGame = ref(Gameplay);
+
+</script>
+
+
+
+
+
+<style scoped>
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.left-section,
+.right-section {
+  flex: 1;
+  padding: 20px;
+}
+
+.middle-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.start-button {
+  margin-top: 20px;
+}
+
+.game-window {
+  width: 100%;
+  height: 100%;
+}
+
+.rules {
+  text-align: center;
+  color: #999999;
+}
 </style>
