@@ -14,10 +14,10 @@ export const useUserStore = defineStore('user', {
       this.isAuthenticated = true;
       sessionStorage.setItem('user-profile', JSON.stringify(profileData));
     },
-    addFavouriteProduct(id) {
+    addFavouriteRecipe(id) {
       this.favouritesIds.push(id);
     },
-    removeFavouriteProduct(id) {
+    removeFavouriteRecipe(id) {
       this.favouritesIds = this.favouritesIds.filter(favourite => favourite !== id);
     },
     getPersistedProfile() {

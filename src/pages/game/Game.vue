@@ -75,6 +75,6 @@ const activeGame = ref(Gameplay);
 
 .rules {
   text-align: center;
-  color: #999999;
+  color: #66d318;
 }
 </style>

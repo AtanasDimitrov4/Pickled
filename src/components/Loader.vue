@@ -1,8 +1,16 @@
 <template>
-    <div class="wrapper">
-      <span class="loader" />
-    </div>
+  <div v-if="isLoading" class="wrapper">
+    
+    <div class="loader"></div>
+    
+  </div>
 </template>
+
+<script setup>
+import { ref } from 'vue';
+
+const isLoading = ref(true);
+</script>
 
 <style  scoped>
 .wrapper{
@@ -14,7 +22,7 @@
   height: 32px;
   position: relative;
   border-radius: 50%;
-  color: #48b711;
+  color: #050c01;
   animation: fill 1s ease-in infinite alternate;
 }
 
