@@ -1,10 +1,10 @@
 <template>
     <div>
-      <h2>{{ data[0].name }}</h2>
-      <p>{{ data[0].tagline }}</p>
-      <p>{{ data[0].description }}</p>
-      <p> {{ data[0].food_pairing }}</p>
-      <p> {{ data[0].brewers_tips }}</p>
+      <h2>Name : {{ data[0].name }}</h2>
+      <p> Tagline : {{ data[0].tagline }}</p>
+      <p> Description : {{ data[0].description }}</p>
+      <p> Food pairing : {{ data[0].food_pairing }}</p>
+      <p> Brewers tips : {{ data[0].brewers_tips }}</p>
     </div>
   </template>
   

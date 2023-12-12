@@ -5,10 +5,10 @@
 </template>
   
   <script setup>
-  import { ref, onMounted, onUnmounted } from 'vue';
+  import { ref, onMounted, onUnmounted, markRaw } from 'vue';
   import { createWorld } from './components/game';
   
-  const game = ref({
+  const game = markRaw({
     ended: false,
     isStarted: false,
   });

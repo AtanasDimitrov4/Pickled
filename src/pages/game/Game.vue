@@ -29,14 +29,14 @@
 
 
 <script setup>
-import { defineAsyncComponent, ref } from 'vue';
-import Gameplay from './Gameplay.vue';
+import { defineAsyncComponent} from 'vue';
 
 
 
-const gameComponent = defineAsyncComponent(() => import('./Gameplay.vue'));
 
-const activeGame = ref(Gameplay);
+
+
+const activeGame = defineAsyncComponent(() => import('./Gameplay.vue'));
 
 </script>
 

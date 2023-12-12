@@ -1,27 +1,38 @@
 <template>
-    <div>
-      <button @click="toggleFavorite">
-        {{ data[0].id ? 'Remove from Favorites' : 'Add to Favorites' }}
-      </button>
-    </div>
-  </template>
-  
-  <script setup>
-  import { ref, defineProps } from 'vue';
-  import { useUserStore } from '../../../store/userStore';
-  
-  const props = defineProps(['data']);
-  const userStore = useUserStore();
-  
-  const toggleFavorite = () => {
-    if (data[0].id) {
-      userStore.removeFavouriteRecipe(favouritesIds.value);
+  <div>
+    <button @click="toggleFavorite">
+      {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites' }}
+    </button>
+  </div>
+</template>
+
+<script setup>
+import { defineProps, ref, onMounted } from 'vue';
+import { useUserStore } from '../../../store/userStore';
+
+const props = defineProps(['data']);
+const userStore = useUserStore();
+
+const isFavorite = ref(false);
+
+onMounted(() => {
+  if (props.data && props.data[0]) {
+    const recipeId = props.data[0].id;
+    isFavorite.value = userStore.isRecipeFavorite(recipeId);
+  }
+});
+
+const toggleFavorite = () => {
+  if (props.data && props.data[0]) {
+    const recipeId = props.data[0].id;
+
+    if (userStore.isRecipeFavorite(recipeId)) {
+      userStore.removeFavouriteRecipe(recipeId);
     } else {
-      userStore.addFavouriteRecipe(favouritesIds.value);
+      userStore.addFavouriteRecipe(recipeId);
     }
-  
-  
-    data[0].id = !data[0].id;
-  };
-  </script>
-  
+
+    isFavorite.value = !isFavorite.value;
+  }
+};
+</script>

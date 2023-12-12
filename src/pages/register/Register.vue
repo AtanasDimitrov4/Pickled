@@ -1,64 +1,54 @@
-<script>
-import { useVuelidate } from '@vuelidate/core';
-import GeneralForm from './components/GeneralForm.vue';
-import AddressForm from './components/AddressForm.vue';
-
-export default {
-  components: { GeneralForm, AddressForm },
-  setup() {
-    return { v$: useVuelidate() };
-  },
-  data() {
-    return {
-      activeForm: 'general',
-      data: {
-        general: {
-          name: 'Simeon',
-          pass: '',
-          confirmPass: '',
-          phone: 0,
-          email: '',
-          gender: '',
-          dateOfBirth: '',
-        },
-        address: {
-          address1: '',
-          address2: '',
-          city: '',
-        },
-      },
-    };
-  },
-  methods: {
-    async onGeneralSubmit(generalData) {
-      const isValid = await this.v$.$validate();
-      if (isValid) {
-        this.activeForm = 'address';
-        this.data.general = { ...generalData };
-      }
-    },
-    async onSubmit(addressData) {
-      const isValid = await this.v$.$validate();
-      if (isValid) {
-        this.data.address = { ...addressData };
-        // eslint-disable-next-line no-alert
-        window.alert('Horay! All is valid');
-        console.log('THE DATA', this.data);
-      }
-    },
-    onBack() {
-      this.activeForm = 'general';
-    },
-  },
-};
-</script>
-
 <template>
-  <GeneralForm v-if="activeForm === 'general'" :initial-data="data.general" @onSubmit="onGeneralSubmit" />
-  <AddressForm
-    v-else-if="activeForm === 'address'"
-    :initial-data="data.address"
-    @onSubmit="onSubmit"
-    @onBack="onBack"
-  />
-</template>
+    <div>
+      <h1>Register</h1>
+      <GeneralForm
+        :fields="formFields"
+        :submitButtonText="submitButtonText"
+        :onSubmit="onSubmit"
+        :formErrors="formErrors"
+      />
+      <RouterLink to="/login">
+        Already have an account? Click here
+      </RouterLink>
+    </div>
+  </template>
+  
+  <script setup>
+  import { ref } from 'vue';
+  import { useUserStore } from '../../store/userStore';
+  import { createUser } from '../../dataProviders/user';
+  import { useVuelidate } from '@vuelidate/core';
+  
+  const userStore = useUserStore();
+  
+  const formFields = ref([
+    { id: 'username', label: 'Username', type: 'text', placeholder: 'Enter your username' },
+    { id: 'email', label: 'Email', type: 'email', placeholder: 'Enter your email', validator: 'email' },
+    { id: 'password', label: 'Password', type: 'password', placeholder: 'Enter your password' },
+  ]);
+  
+  const formErrors = ref({});
+  
+  const submitButtonText = 'Register';
+  
+  const onSubmit = async () => {
+    const isValid = useVuelidate(formFields.value, formData);
+    if (!isValid) {
+      console.log('Form validation failed');
+      return;
+    }
+  
+    const userData = await createUser(formData);
+    console.log('userData', userData);
+  
+    
+  };
+  </script>
+  
+<style scoped>
+  
+</style>
+  
+  
+
+  

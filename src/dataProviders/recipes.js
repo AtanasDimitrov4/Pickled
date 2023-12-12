@@ -3,7 +3,7 @@ import axios from "axios";
 export async function getRecipe() {
     const currentDate = new Date();
     const day = currentDate.getDate();
-    const month = currentDate.getMonth() -11; 
+    const month = currentDate.getMonth() -10; 
   
     const recipeOfDay = `${day}${month}`;
     try {

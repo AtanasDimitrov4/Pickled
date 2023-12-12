@@ -1,7 +1,8 @@
 <template>
     <div class="recipe-container">
+      <h1>Recipe of the day</h1>
       <RecipeHeader :data ="newRecipe"/>
-      <RecipeImage :data="newRecipe.image_url" :title="newRecipe.name" />
+      <RecipeImage :data="newRecipe" :title="newRecipe" />
       <FavoriteButton :data="isFavorite" />
       <Loader v-if="isLoading" />
       <div v-if="error">
@@ -10,20 +11,20 @@
     </div>
   </template>
   
-  <script setup>
-  import { ref } from 'vue'
-  import { getRecipe } from '../../dataProviders/recipes';
-  import Loader from '../../components/Loader.vue';
-  import RecipeHeader from './components/RecipeHeader.vue';
-  import RecipeImage from './components/RecipeImage.vue';
-  import FavoriteButton from './components/FavoriteButton.vue';
+<script setup>
+import { ref } from 'vue'
+import { getRecipe } from '../../dataProviders/recipes';
+import Loader from '../../components/Loader.vue';
+import RecipeHeader from './components/RecipeHeader.vue';
+import RecipeImage from './components/RecipeImage.vue';
+import FavoriteButton from './components/FavoriteButton.vue';
   
  const newRecipe =  await getRecipe()
  const isLoading = ref(true);
  const error = ref(null);
   
   const isFavorite = false; 
-  </script>
+</script>
 
 <style scoped>
   .recipe-container {

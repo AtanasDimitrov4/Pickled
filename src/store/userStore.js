@@ -1,13 +1,11 @@
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
-  state: () => {
-    return {
-        isAuthenticated: false,
-      profile: null,
-      favouritesIds: [],
-    };
-  },
+  state: () => ({
+    isAuthenticated: false,
+    profile: null,
+    favouritesRecipes: [], 
+  }),
   actions: {
     setProfile(profileData) {
       this.profile = profileData;
@@ -15,15 +13,20 @@ export const useUserStore = defineStore('user', {
       sessionStorage.setItem('user-profile', JSON.stringify(profileData));
     },
     addFavouriteRecipe(id) {
-      this.favouritesIds.push(id);
+      this.favouritesRecipes.push(id);
     },
     removeFavouriteRecipe(id) {
-      this.favouritesIds = this.favouritesIds.filter(favourite => favourite !== id);
+      this.favouritesRecipes = this.favouritesRecipes.filter((favourite) => favourite !== id);
+    },
+    isRecipeFavorite(id) {
+      return this.favouritesRecipes.includes(id);
+    },
+    getFavouriteRecipes() {
+      return this.favouritesRecipes;
     },
     getPersistedProfile() {
       const persisted = sessionStorage.getItem('user-profile');
-      if (!persisted)
-        return;
+      if (!persisted) return;
       this.profile = JSON.parse(persisted);
       this.isAuthenticated = true;
     },
