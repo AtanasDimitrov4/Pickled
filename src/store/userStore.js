@@ -1,11 +1,13 @@
 import { defineStore } from 'pinia';
 
 export const useUserStore = defineStore('user', {
-  state: () => ({
+  state: () => {
+    return{
     isAuthenticated: false,
     profile: null,
-    favouritesRecipes: [], 
-  }),
+    favouritesRecipes: [],
+    } 
+  },
   actions: {
     setProfile(profileData) {
       this.profile = profileData;
@@ -16,7 +18,7 @@ export const useUserStore = defineStore('user', {
       this.favouritesRecipes.push(id);
     },
     removeFavouriteRecipe(id) {
-      this.favouritesRecipes = this.favouritesRecipes.filter((favourite) => favourite !== id);
+      this.favouritesRecipes = this.favouritesRecipes.filter(favourite => favourite !== id);
     },
     isRecipeFavorite(id) {
       return this.favouritesRecipes.includes(id);

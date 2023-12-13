@@ -3,7 +3,7 @@
       <h1>Recipe of the day</h1>
       <RecipeHeader :data ="newRecipe"/>
       <RecipeImage :data="newRecipe" :title="newRecipe" />
-      <FavoriteButton :data="isFavorite" />
+      <FavoriteButton :data="newRecipe.id" /> />
       <Loader v-if="isLoading" />
       <div v-if="error">
         <p>{{ error }}</p>
@@ -23,7 +23,7 @@ import FavoriteButton from './components/FavoriteButton.vue';
  const isLoading = ref(true);
  const error = ref(null);
   
-  const isFavorite = false; 
+const isFavorite = false; 
 </script>
 
 <style scoped>

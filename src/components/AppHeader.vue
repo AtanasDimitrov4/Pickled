@@ -13,8 +13,7 @@
 		  <template v-else>
 			<li><RouterLink to="/login">Login</RouterLink></li>
 		  </template>
-  
-		  <li><RouterLink to="/game">Game</RouterLink></li>
+          <li><RouterLink to="/game">Game</RouterLink></li>
 		  <li><RouterLink to="/cast">Cast</RouterLink></li>
 		  <li><RouterLink to="/recipe">Recipe</RouterLink></li>
 		</ul>

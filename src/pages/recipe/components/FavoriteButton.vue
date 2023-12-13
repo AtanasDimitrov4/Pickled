@@ -7,32 +7,34 @@
 </template>
 
 <script setup>
-import { defineProps, ref, onMounted } from 'vue';
+import { ref, onMounted, } from 'vue';
 import { useUserStore } from '../../../store/userStore';
 
-const props = defineProps(['data']);
+  const currentDate = new Date();
+  const day = currentDate.getDate();
+  const month = currentDate.getMonth() -10; 
+  
+  const idRecipe = `${day}${month}`;
 const userStore = useUserStore();
-
 const isFavorite = ref(false);
 
 onMounted(() => {
-  if (props.data && props.data[0]) {
-    const recipeId = props.data[0].id;
-    isFavorite.value = userStore.isRecipeFavorite(recipeId);
-  }
+  
+  isFavorite.value = userStore.isRecipeFavorite(idRecipe);
 });
 
 const toggleFavorite = () => {
-  if (props.data && props.data[0]) {
-    const recipeId = props.data[0].id;
-
-    if (userStore.isRecipeFavorite(recipeId)) {
-      userStore.removeFavouriteRecipe(recipeId);
-    } else {
-      userStore.addFavouriteRecipe(recipeId);
-    }
-
-    isFavorite.value = !isFavorite.value;
+  if (isFavorite.value) {
+    userStore.removeFavouriteRecipe(idRecipe);
+  } else {
+    userStore.addFavouriteRecipe(idRecipe);
   }
+  
+  isFavorite.value = !isFavorite.value;
+  console.log(idRecipe)
 };
 </script>
+
+<style scoped>
+
+</style>

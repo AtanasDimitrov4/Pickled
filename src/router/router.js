@@ -18,7 +18,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/game', component: Game },
   { path: '/cast', component: Cast },
-  { path: '/recipe', component: Recipe },
+  { path: '/recipe', component: Recipe, beforeEnter: validateUser },
   { path: '/gameplay', component: Gameplay},
   { path: '/register', component: Register},
   { path: '/login',

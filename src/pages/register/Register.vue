@@ -17,7 +17,8 @@
   import { ref } from 'vue';
   import { useUserStore } from '../../store/userStore';
   import { createUser } from '../../dataProviders/user';
-  import { useVuelidate } from '@vuelidate/core';
+  import GeneralForm from './components/GeneralForm.vue'
+  import useVuelidate from '@vuelidate/core'
   
   const userStore = useUserStore();
   

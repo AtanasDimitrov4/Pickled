@@ -19,6 +19,7 @@
   <script setup>
   import { ref } from 'vue';
   import { defineProps } from 'vue';
+  import FormItem from '../components/FormItem.vue'
   
   const props = defineProps(['fields', 'submitButtonText', 'onSubmit', 'formErrors']);
   
